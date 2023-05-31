@@ -1,1 +1,1 @@
-web: python hola_mundo.py
+web: gunicorn wsgi:app

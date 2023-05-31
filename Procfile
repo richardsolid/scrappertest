@@ -1,1 +1,1 @@
-worker: python hola_mundo.py
+web: python hola_mundo.py

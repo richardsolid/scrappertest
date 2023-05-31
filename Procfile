@@ -1,0 +1,1 @@
+worker: python hola_mundo.py

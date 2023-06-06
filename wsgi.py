@@ -1,5 +1,6 @@
 import os
 import time
+import random
 from dotenv import load_dotenv
 import json
 from flask import Flask
@@ -151,8 +152,10 @@ def crawl(url, max_urls=5):
         if total_urls_visited > max_urls:
             print(f"{YELLOW}[*] Terminado!{RESET}")
             break
-        print("Esperando 2 segundos...")
-        time.sleep(2)  # Espera 2 segundos antes de continuar      
+
+        wait_time = random.randint(2, 4)  # Genera un tiempo de espera aleatorio entre 2 y 4 segundos
+        print(f"Esperando {wait_time} segundos...") 
+        time.sleep(wait_time)  # Espera el tiempo aleatorio generado antes de continuar   
         crawl(link, max_urls=max_urls)
 
 

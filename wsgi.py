@@ -3,7 +3,7 @@ import time
 import random
 from dotenv import load_dotenv
 import json
-from flask import Flask
+from flask import Flask, request, render_template
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import requests
@@ -43,13 +43,20 @@ sheet_name = 'Sheet1'
 
 sheets_api = build('sheets', 'v4', credentials=creds)
 
-@app.route('/')
+@app.route('/leerGS')
 def hello_world():
     # Leer el dato de prueba de la hoja de cálculo
     result = sheets_api.spreadsheets().values().get(spreadsheetId=spreadsheet_id, range=f'{sheet_name}!A1:A2').execute()
-    test_data = result['values']
-    agregar_hola_a_google_sheets()
+    test_data = result['values']   
     return f'Hola Mundo! El dato de prueba es: {test_data}'
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        agregar_hola_a_google_sheets()
+        url = request.form['url']
+        crawl(url, 5)
+    return render_template('index.html')
 
 def agregar_hola_a_google_sheets():
     # Leer todas las celdas en la columna A hasta la fila 1000 (ajusta este valor según sea necesario)
@@ -71,7 +78,7 @@ def agregar_hola_a_google_sheets():
     body = {
         'range': f'{sheet_name}!A{row}',
         'majorDimension': 'ROWS',
-        'values': [['Hola']]
+        'values': [['Test con formulario']]
     }
     sheets_api.spreadsheets().values().update(
         spreadsheetId=spreadsheet_id,

@@ -1,4 +1,5 @@
 import os
+import time
 from dotenv import load_dotenv
 import json
 from flask import Flask
@@ -150,9 +151,9 @@ def crawl(url, max_urls=5):
         if total_urls_visited > max_urls:
             print(f"{YELLOW}[*] Terminado!{RESET}")
             break
+        print("Esperando 2 segundos...")
+        time.sleep(2)  # Espera 2 segundos antes de continuar      
         crawl(link, max_urls=max_urls)
-
-
 
 
 if __name__ == '__main__':

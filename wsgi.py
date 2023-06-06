@@ -153,7 +153,7 @@ def crawl(url, max_urls=5):
             print(f"{YELLOW}[*] Terminado!{RESET}")
             break
 
-        wait_time = random.randint(2, 4)  # Genera un tiempo de espera aleatorio entre 2 y 4 segundos
+        wait_time = round(random.uniform(2, 4), 1)  # Genera un tiempo de espera aleatorio (decimal) entre 2 y 4 segundos y lo redondea a 1 decimal
         print(f"Esperando {wait_time} segundos...") 
         time.sleep(wait_time)  # Espera el tiempo aleatorio generado antes de continuar   
         crawl(link, max_urls=max_urls)
